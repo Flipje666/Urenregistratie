@@ -1,0 +1,50 @@
+﻿<Window x:Class="Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client"
+        mc:Ignorable="d"
+        Title="Hoofdscherm" Height="361" Width="659.551" Background="FloralWhite" WindowStartupLocation="CenterScreen" MouseEnter="MainWindow_OnMouseEnter">
+    <Grid>
+        <Label x:Name="MainProjectLabel" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="178" Height="35"/>
+        <ListBox x:Name="TaskListBox" HorizontalAlignment="Left" Height="111" Margin="10,91,0,0" VerticalAlignment="Top" Width="121" SelectionMode="Single" SelectionChanged="TaskListBox_OnSelectionChanged">
+            <ListBoxItem>Programmeren</ListBoxItem>
+            <ListBoxItem>Ontwerpen</ListBoxItem>
+            <ListBoxItem>Adviseren</ListBoxItem>
+            <ListBoxItem>Deskundigheid</ListBoxItem>
+            <ListBoxItem>Overig</ListBoxItem>
+        </ListBox>
+        <Label x:Name="MainTaskListLabel" Content="Taken" VerticalContentAlignment="Center" FontSize="14px" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="36" Width="121"/>
+        <ListBox x:Name="HourListBox" HorizontalAlignment="Left" Height="124" Margin="459,91,0,0" VerticalAlignment="Top" Width="142" SelectionMode="Single">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Hours}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Focusable" Value="False"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <Label x:Name="HourListLabel" Content="Urenoverzicht" VerticalContentAlignment="Center" FontWeight="DemiBold" FontSize="14px" HorizontalAlignment="Left" Margin="459,50,0,0" VerticalAlignment="Top" Height="36" Width="116"/>
+        <Label x:Name="TaskLabel" Content="Geselecteerde taak:" HorizontalAlignment="Left" Margin="147,107,0,0" VerticalAlignment="Top" Height="27" Width="121"/>
+        <Label x:Name="HourLabel" Content="Gewerkte uren:" HorizontalAlignment="Left" Margin="171,158,0,0" VerticalAlignment="Top" Height="27" Width="97"/>
+        <TextBox x:Name="TaskBox" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="27" Margin="283,107,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130"/>
+        <TextBox x:Name="HourBox" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="27" Margin="283,158,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" GotFocus="HourBox_OnGotFocus"/>
+        <Button x:Name="HourSaveButton" Content="Uren Toevoegen" HorizontalAlignment="Left" Margin="283,210,0,0" VerticalAlignment="Top" Width="130" Height="20" Click="HourSaveButton_Click"/>
+        <Button x:Name="HourEditButton" Content="Uren Wijzigen" HorizontalAlignment="Left" Margin="283,235,0,0" VerticalAlignment="Top" Width="130" Height="20" Click="HourEditButton_Click"/>
+        <Button x:Name="HourDeleteButton" Content="Uren Verwijderen" HorizontalAlignment="Left" Margin="283,260,0,0" VerticalAlignment="Top" Width="130" Height="21" Click="HourDeleteButton_Click"/>
+        <TextBlock x:Name="MessageBlock" HorizontalAlignment="Left" TextAlignment="Center" Height="35" Margin="82,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="476" FontWeight="Bold" FontSize="16px"/>
+    </Grid>
+</Window>
+

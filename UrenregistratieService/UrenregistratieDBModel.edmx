@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="AppUsers" EntityType="Model1.Store.AppUsers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Projects" EntityType="Model1.Store.Projects" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tasks" EntityType="Model1.Store.Tasks" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ProjectUsers" Association="Model1.Store.ProjectUsers">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="Project" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="Tasks1" Association="Model1.Store.Tasks1">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="Task" EntitySet="Tasks" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AppUsers">
+    <Key>
+      <PropertyRef Name="Userid" />
+    </Key>
+    <Property Name="Userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Project_Projectid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Projects">
+    <Key>
+      <PropertyRef Name="Projectid" />
+    </Key>
+    <Property Name="Projectid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectName" Type="nvarchar(max)" Nullable="false" DefaultValue="UR-Project" />
+  </EntityType>
+  <EntityType Name="Tasks">
+    <Key>
+      <PropertyRef Name="Taskid" />
+    </Key>
+    <Property Name="Taskid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Hours" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AppUser_Userid" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ProjectUsers">
+    <End Role="AppUser" Type="Model1.Store.AppUsers" Multiplicity="*" />
+    <End Role="Project" Type="Model1.Store.Projects" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Projectid" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="Project_Projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Tasks1">
+    <End Role="AppUser" Type="Model1.Store.AppUsers" Multiplicity="1" />
+    <End Role="Task" Type="Model1.Store.Tasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="Userid" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="AppUser_Userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="UrenregistratieDBModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppUsers" EntityType="Model1.AppUser" />
+          <EntitySet Name="Projects" EntityType="Model1.Project" />
+          <EntitySet Name="Tasks" EntityType="Model1.Task" />
+          <AssociationSet Name="ProjectUsers" Association="Model1.ProjectUsers">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="Tasks1" Association="Model1.Tasks1">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AppUser">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Project" Relationship="Model1.ProjectUsers" FromRole="AppUser" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Projectid" />
+          </Key>
+          <Property Name="Projectid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" Nullable="false" DefaultValue="UR-Project" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="Taskid" />
+          </Key>
+          <Property Name="Taskid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Hours" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="AppUser" Relationship="Model1.Tasks1" FromRole="Task" ToRole="AppUser" />
+        </EntityType>
+        <Association Name="ProjectUsers">
+          <End Type="Model1.AppUser" Role="AppUser" Multiplicity="*" />
+          <End Type="Model1.Project" Role="Project" Multiplicity="1" />
+        </Association>
+        <Association Name="Tasks1">
+          <End Type="Model1.AppUser" Role="AppUser" Multiplicity="1" />
+          <End Type="Model1.Task" Role="Task" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="UrenregistratieDBModelContainer">
+    <EntitySetMapping Name="AppUsers">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.AppUser)">
+        <MappingFragment StoreEntitySet="AppUsers">
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Project)">
+        <MappingFragment StoreEntitySet="Projects">
+          <ScalarProperty Name="Projectid" ColumnName="Projectid" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tasks">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Task)">
+        <MappingFragment StoreEntitySet="Tasks">
+          <ScalarProperty Name="Taskid" ColumnName="Taskid" />
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ProjectUsers" TypeName="Model1.ProjectUsers" StoreEntitySet="AppUsers">
+      <EndProperty Name="Project">
+        <ScalarProperty Name="Projectid" ColumnName="Project_Projectid" />
+      </EndProperty>
+      <EndProperty Name="AppUser">
+        <ScalarProperty Name="Userid" ColumnName="Userid" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Tasks1" TypeName="Model1.Tasks1" StoreEntitySet="Tasks">
+      <EndProperty Name="AppUser">
+        <ScalarProperty Name="Userid" ColumnName="AppUser_Userid" />
+      </EndProperty>
+      <EndProperty Name="Task">
+        <ScalarProperty Name="Taskid" ColumnName="Taskid" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
