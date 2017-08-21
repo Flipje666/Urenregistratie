@@ -88,7 +88,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>UrenregistratieDBModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="App.Config" />
     <None Include="UrenregistratieDBModel.edmx.diagram">
       <DependentUpon>UrenregistratieDBModel.edmx</DependentUpon>
     </None>
